@@ -14,34 +14,30 @@
     <div class="container d-flex flex-row justify-content-center align-items-center" style="gap: 300px;">
       <h2 class="mb-0">Temply</h2>
       <nav class="mt-2">
-        <a href="index.html" class="btn btn-primary me-2">Home</a>
-        <a href="about.html" class="btn btn-primary me-2">About</a>
-        <a href="contact.html" class="btn btn-primary me-2">Contact</a>
+        <a href="../soal-1/index.html" class="btn btn-primary me-2">Home</a>
+        <a href="../soal-1/about.html" class="btn btn-primary me-2">About</a>
+        <a href="../soal-1/contact.html" class="btn btn-primary me-2">Contact</a>
       </nav>
       <nav class="mt-2">
-        <a href="sign-up.html" class="bg-light btn btn-outline-primary me-2 fw-bolder">Sign Up</a>
-        <a href="sign-in.html" class="bg-light btn btn-outline-primary me-2">Sign In</a>
+        <a href="sign-up.html" class="bg-light btn btn-outline-primary me-2">Sign Up</a>
+        <a href="sign-in.html" class="bg-light btn btn-outline-primary me-2 fw-bolder">Sign In</a>
       </nav>
     </div>
   </header>
 
-  <form id="sign-up" class="container d-flex flex-column justify-content-center align-items-center" style="margin-top: 100px; gap: 20px;" onsubmit="return validateForm()">
-    <h2 class="mb-0">Please Sign Up</h2>
-    <div class="d-flex align-items-center gap-2" style="width: 35%;">
-      <input type="text" id="fname" class="form-control" placeholder="First Name">
-      <input type="text" id="lname" class="form-control" placeholder="Last Name">
+  <form id="sign-in" class="container d-flex flex-column justify-content-center align-items-center" style="margin-top: 100px; gap: 20px;" onsubmit="return validateForm()">
+    <h2 class="mb-0">Welcome Back!</h2>
+    <div class="input-group" style="width: 35%;">
+      <input type="email" class="form-control" id="email" placeholder="Email Address">
     </div>
     <div style="width: 35%;">
-      <input type="text" id="dname" class="form-control" placeholder="Display Name">
+      <input type="password" class="form-control" id="password" placeholder="Password">
     </div>
     <div style="width: 35%;">
-      <input type="email" id="email" class="form-control" placeholder="Email Address">
+      <input type="checkbox" id="agree" name="agree" class="me-2">
+      <label for="agree">I agree to the above information</label>
     </div>
-    <div class="d-flex align-items-center gap-2" style="width: 35%;">
-      <input type="password" id="password" class="form-control" placeholder="Password">
-      <input type="password" id="cpassword" class="form-control" placeholder="Confirm Password">
-    </div>
-    <button type="submit" class="btn btn-primary" style="width: 35%;">SIGN UP</button>
+    <button type="submit" class="btn btn-primary" style="width: 35%;">SIGN IN</button>
   </form>
   <div id="hasil" class="container mt-4 d-flex justify-content-center" style="display: none;"></div>
 
@@ -65,27 +61,12 @@
   <script>
     function validateForm() {
       event.preventDefault();
-      const first_name = document.getElementById("fname").value;
-      const last_name = document.getElementById("lname").value;
-      const display_name = document.getElementById("dname").value;
       const email = document.getElementById("email").value;
       const pass = document.getElementById("password").value;
-      const cpass = document.getElementById("cpassword").value;
-      const divHasil = document.getElementById("hasil");
+      const agree = document.getElementById("agree").checked;
+      const divHasil = document.getElementById('hasil');
 
       let isValid = true;
-
-      if (first_name === "") {
-          isValid = false;
-      }
-
-      if (last_name === "") {
-          isValid = false;
-      }
-
-      if (display_name === "") {
-          isValid = false;
-      }
 
       if (email === "" || !email.includes("@") || !email.includes(".")) {
           isValid = false;
@@ -95,7 +76,7 @@
           isValid = false;
       }
 
-      if (cpass === "" || cpass !== pass) {
+      if (!agree) {
           isValid = false;
       }
 
@@ -105,17 +86,17 @@
           divHasil.innerHTML = `
               <div class="alert alert-success w-100" style="max-width: 35%;" role="alert">
                   <h4 class="alert-heading mb-2">✅ Success</h4>
-                  <p class="mb-0">You've successfully signed up.</p>
+                  <p class="mb-0">You've successfully signed in.</p>
               </div>
           `;
           
-          document.getElementById("sign-up").reset();
+          document.getElementById("sign-in").reset();
           return true;
       } else {
           divHasil.innerHTML = `
               <div class="alert alert-danger w-100" style="max-width: 35%;" role="alert">
                   <h4 class="alert-heading mb-2">❌ Failed</h4>
-                  <p class="mb-0">You've failed to sign up. Please check your credentials and try again.</p>
+                  <p class="mb-0">You've failed to sign in. Please check your credentials and try again.</p>
               </div>
           `;
           return false;
